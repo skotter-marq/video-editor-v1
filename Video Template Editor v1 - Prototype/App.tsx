@@ -350,15 +350,15 @@ function App() {
 
       {/* Main Content Area */}
       <div className="flex-1 flex overflow-hidden relative">
-        {/* Left Sidebar Navigation - 64px overlay - always visible */}
+        {/* Left Sidebar Navigation - 80px overlay - always visible */}
         <SidebarNavigation
           activeSection={activeSection}
           onSectionChange={handleSectionChange}
         />
 
-        {/* Content Panel - 364px sidebar with left margin for navigation */}
+        {/* Content Panel - 384px sidebar with left margin for navigation */}
         {!showVideoPropertiesPanel && !showVideoAdjustPanel && !showAnimationsPanel && (
-          <div className="ml-16 w-[364px] h-full bg-white border-r border-gray-200 flex flex-col">
+          <div className="ml-20 w-[384px] h-full bg-white border-r border-gray-100 flex flex-col shadow-sm">
             <ContentPanel
               activeSection={activeSection}
               videoLibrary={videoLibrary}
@@ -374,9 +374,9 @@ function App() {
           </div>
         )}
 
-        {/* Video Properties Panel - 364px sidebar with left margin for navigation */}
+        {/* Video Properties Panel - 384px sidebar with left margin for navigation */}
         {showVideoPropertiesPanel && !showVideoAdjustPanel && !showAnimationsPanel && (
-          <div className="ml-16 w-[364px] h-full bg-white border-r border-gray-200 flex flex-col shadow-lg">
+          <div className="ml-20 w-[384px] h-full bg-white border-r border-gray-100 flex flex-col shadow-lg">
             <VideoPropertiesPanel
               selectedVideo={selectedVideo}
               onVideoUpdate={handleVideoUpdate}
@@ -397,9 +397,9 @@ function App() {
           </div>
         )}
 
-        {/* Video Adjust Panel - 364px sidebar with left margin for navigation */}
+        {/* Video Adjust Panel - 384px sidebar with left margin for navigation */}
         {showVideoAdjustPanel && !showAnimationsPanel && (
-          <div className="ml-16 w-[364px] h-full bg-white border-r border-gray-200 flex flex-col shadow-lg">
+          <div className="ml-20 w-[384px] h-full bg-white border-r border-gray-100 flex flex-col shadow-lg">
             <VideoAdjustPanel
               selectedVideo={selectedVideo}
               onVideoUpdate={handleVideoUpdate}
@@ -408,9 +408,9 @@ function App() {
           </div>
         )}
 
-        {/* Animations Panel - 364px sidebar with left margin for navigation */}
+        {/* Animations Panel - 384px sidebar with left margin for navigation */}
         {showAnimationsPanel && (
-          <div className="ml-16 w-[364px] h-full bg-white border-r border-gray-200 flex flex-col shadow-lg">
+          <div className="ml-20 w-[384px] h-full bg-white border-r border-gray-100 flex flex-col shadow-lg">
             <AnimationsPanel
               selectedVideo={selectedVideo}
               onVideoUpdate={handleVideoUpdate}

@@ -5,7 +5,7 @@ import { ElementsLibrary } from './ElementsLibrary';
 import { BrandKit } from './BrandKit';
 import { AIAgentModal } from './AIAgentModal';
 import { VideoAsset, SceneLayer } from '../types/video';
-import { LayoutTemplate, Plus } from 'lucide-react';
+import { LayoutTemplate, Plus, Sparkles } from 'lucide-react';
 import { Button } from './ui/button';
 
 interface ContentPanelProps {
@@ -20,6 +20,15 @@ interface ContentPanelProps {
   showAIModal: boolean;
   onShowAIModal: (show: boolean) => void;
 }
+
+const sectionTitles = {
+  'uploads': 'Media Library',
+  'text': 'Text Elements',
+  'elements': 'Design Elements',
+  'brand-kit': 'Brand Assets',
+  'templates': 'Templates',
+  'ai-assistant': 'AI Assistant'
+};
 
 export function ContentPanel({ 
   activeSection, 
@@ -37,52 +46,62 @@ export function ContentPanel({
     switch (activeSection) {
       case 'uploads':
         return (
-          <VideoUploader 
-            videoLibrary={videoLibrary}
-            timelineVideos={timelineVideos}
-            onVideoUpload={onVideoUpload}
-            onVideoSelect={onVideoSelect}
-            onAddToTimeline={onAddToTimeline}
-          />
+          <div className="flex-1 flex flex-col">
+            <VideoUploader 
+              videoLibrary={videoLibrary}
+              timelineVideos={timelineVideos}
+              onVideoUpload={onVideoUpload}
+              onVideoSelect={onVideoSelect}
+              onAddToTimeline={onAddToTimeline}
+            />
+          </div>
         );
       
       case 'text':
         return (
-          <div className="p-4">
+          <div className="flex-1 p-6">
             <TextLibrary onLayerAdd={onLayerAdd} />
           </div>
         );
       
       case 'elements':
         return (
-          <div className="p-4">
+          <div className="flex-1 p-6">
             <ElementsLibrary onLayerAdd={onLayerAdd} />
           </div>
         );
       
       case 'brand-kit':
         return (
-          <BrandKit 
-            onColorSelect={onColorSelect}
-            onFontSelect={(font) => {
-              console.log('Font selected:', font);
-            }}
-            onLogoSelect={(logo) => {
-              console.log('Logo selected:', logo);
-            }}
-          />
+          <div className="flex-1">
+            <BrandKit 
+              onColorSelect={onColorSelect}
+              onFontSelect={(font) => {
+                console.log('Font selected:', font);
+              }}
+              onLogoSelect={(logo) => {
+                console.log('Logo selected:', logo);
+              }}
+            />
+          </div>
         );
       
       case 'templates':
         return (
-          <div className="p-4">
-            <div className="text-center py-12">
-              <LayoutTemplate className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="font-semibold text-gray-900 mb-2">Templates Coming Soon</h3>
-              <p className="text-sm text-gray-600 mb-4">
-                Professional video templates to jumpstart your projects
+          <div className="flex-1 flex flex-col items-center justify-center p-8">
+            <div className="text-center max-w-sm">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <LayoutTemplate className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Templates Coming Soon</h3>
+              <p className="text-sm text-gray-600 mb-6 leading-relaxed">
+                Professional video templates to jumpstart your projects and maintain brand consistency.
               </p>
-              <Button variant="outline" size="sm">
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="border-blue-200 text-blue-700 hover:bg-blue-50 hover:border-blue-300"
+              >
                 <Plus className="w-4 h-4 mr-2" />
                 Request Template
               </Button>
@@ -92,19 +111,20 @@ export function ContentPanel({
       
       case 'ai-assistant':
         return (
-          <div className="p-4">
-            <div className="text-center py-12">
-              <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold">AI</span>
+          <div className="flex-1 flex flex-col items-center justify-center p-8">
+            <div className="text-center max-w-sm">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <Sparkles className="w-8 h-8 text-white" />
               </div>
-              <h3 className="font-semibold text-gray-900 mb-2">AI Assistant</h3>
-              <p className="text-sm text-gray-600 mb-4">
-                Get help with your video editing projects
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">AI Assistant</h3>
+              <p className="text-sm text-gray-600 mb-6 leading-relaxed">
+                Get intelligent help with your video editing projects and creative workflows.
               </p>
               <Button 
                 onClick={() => onShowAIModal(true)}
-                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg hover:shadow-xl transition-all duration-200"
               >
+                <Sparkles className="w-4 h-4 mr-2" />
                 Open AI Assistant
               </Button>
             </div>
@@ -119,8 +139,30 @@ export function ContentPanel({
   if (!activeSection) return null;
 
   return (
-    <div className="w-[364px] h-full bg-white border-r border-gray-200 flex flex-col">
-      {renderContent()}
+    <div className="w-[384px] h-full bg-white border-r border-gray-100 flex flex-col">
+      {/* Header */}
+      <div className="px-6 py-4 border-b border-gray-100 bg-white">
+        <h2 className="text-lg font-semibold text-gray-900">
+          {sectionTitles[activeSection as keyof typeof sectionTitles] || activeSection}
+        </h2>
+        {activeSection === 'uploads' && (
+          <p className="text-sm text-gray-500 mt-1">Upload and manage your media files</p>
+        )}
+        {activeSection === 'text' && (
+          <p className="text-sm text-gray-500 mt-1">Add text elements to your video</p>
+        )}
+        {activeSection === 'elements' && (
+          <p className="text-sm text-gray-500 mt-1">Design elements and shapes</p>
+        )}
+        {activeSection === 'brand-kit' && (
+          <p className="text-sm text-gray-500 mt-1">Your brand colors, fonts, and assets</p>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 overflow-hidden">
+        {renderContent()}
+      </div>
       
       {/* AI Assistant Modal */}
       <AIAgentModal 
